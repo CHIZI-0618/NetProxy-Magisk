@@ -5,8 +5,8 @@
 <h1 align="center">NetProxy</h1>
 
 <p align="center">
-  <strong>Android 系统级 Xray 透明代理模块</strong><br>
-  支持 TPROXY、UDP、IPv6、分应用代理、订阅管理
+  <strong>Android System-Level Xray Transparent Proxy Module</strong><br>
+  Supports TPROXY, UDP, IPv6, Per-App Proxy, Subscription Management
 </p>
 
 <p align="center">
@@ -20,53 +20,56 @@
 </p>
 
 <p align="center">
-  中文 | <a href="README_EN.md">English</a>
+  <a href="README_ZH.md">中文</a> | English
 </p>
 
 ---
 
-## 功能特性
+## Features
 
-| 功能 | 描述 |
+| Feature | Description |
 |------|------|
-| **APP管理** | Miuix 现代化界面，支持莫奈取色 |
-| **透明代理** | 支持 TPROXY / REDIRECT 两种模式，TCP + UDP 全接管 |
-| **分应用代理** | 黑名单 / 白名单模式，精准控制代理范围 |
-| **路由设置** | 自定义域名、IP、端口等路由规则 |
-| **DNS 设置** | 自定义 DNS 服务器和静态 Hosts 映射 |
-| **订阅管理** | 在线添加、更新订阅，自动解析节点 |
-| **热点共享** | 支持代理 WiFi 热点和 USB 共享的流量 |
-| **热切换配置** | 无需重启即可切换节点 |
+| **WebUI Management** | Material Design 3 modern interface with Monet theming support |
+| **Transparent Proxy** | Supports TPROXY / REDIRECT modes, full TCP + UDP interception |
+| **Per-App Proxy** | Blacklist / Whitelist mode for precise proxy control |
+| **Routing Rules** | Custom domain, IP, port and other routing rules |
+| **DNS Settings** | Custom DNS servers and static Hosts mapping |
+| **Subscription** | Add and update subscriptions online, auto-parse nodes |
+| **Hotspot Sharing** | Proxy WiFi hotspot and USB tethering traffic |
+| **Hot Switch** | Switch nodes without restarting the service |
 
 ---
 
-## 界面预览
+## Screenshots
 
 <div align="center">
-  <img src="image/Screenshot.jpg" width="60%" alt="界面预览" />
+  <img src="image/Screenshot1.jpg" width="24%" alt="Status Page" />
+  <img src="image/Screenshot2.jpg" width="24%" alt="Node Management" />
+  <img src="image/Screenshot3.jpg" width="24%" alt="App Control" />
+  <img src="image/Screenshot4.jpg" width="24%" alt="Settings" />
 </div>
 
 ---
 
-## 安装
+## Installation
 
-1. 从 [Releases](https://github.com/Fanju6/NetProxy-Magisk/releases) 下载最新版 ZIP
-2. 在 **Magisk / KernelSU / APatch** 中刷入模块
-3. 重启设备
-4. 打开模块管理器的 WebUI 进行配置
+1. Download the latest ZIP from [Releases](https://github.com/Fanju6/NetProxy-Magisk/releases)
+2. Flash the module in **Magisk / KernelSU / APatch**
+3. Reboot your device
+4. Open the WebUI from your module manager to configure
 
 ---
 
-## 目录结构
+## Directory Structure
 
 ```
 /data/adb/modules/netproxy/
-├── bin/                      # Xray 二进制文件
+├── bin/                      # Xray binary
 ├── config/
 │   ├── xray/
-│   │   ├── confdir/          # Xray 核心配置
-│   │   │   ├── routing/      # 路由分流配置
-│   │   │   │   ├── internal/ # 内部系统配置
+│   │   ├── confdir/          # Xray core configuration
+│   │   │   ├── routing/      # Routing & Shunting configuration
+│   │   │   │   ├── internal/ # Internal system configuration
 │   │   │   │   ├── direct.json
 │   │   │   │   ├── global.json
 │   │   │   │   ├── rule.json
@@ -77,37 +80,37 @@
 │   │   │   ├── 03_inbounds.json
 │   │   │   ├── 04_outbounds.json
 │   │   │   └── 05_policy.json
-│   │   └── outbounds/        # 出站节点分组目录
-│   │       ├── default/      # 默认节点分组
-│   │       └── sub_xxx/      # 订阅分组目录
+│   │   └── outbounds/        # Outbound node group directories
+│   │       ├── default/      # Default node group
+│   │       └── sub_xxx/      # Subscription group directories
 │   ├── tproxy/
-│   │   └── tproxy.conf       # 透明代理配置
-│   └── module.conf           # 模块设置（开机自启等）
-├── logs/                     # 运行日志
-├── scripts/                  # 启动、停止、订阅等脚本
-├── webroot/                  # WebUI 静态资源
-└── service.sh                # 模块启动入口
+│   │   └── tproxy.conf       # Transparent proxy configuration
+│   └── module.conf           # Module settings (autostart, etc.)
+├── logs/                     # Runtime logs
+├── scripts/                  # Start, stop, subscription scripts
+├── webroot/                  # WebUI static resources
+└── service.sh                # Module entry point
 ```
 
 ---
 
-## 快速开始
+## Quick Start
 
-### 方式一：节点链接导入（推荐）
+### Method 1: Import Node Link (Recommended)
 
-在 APP节点页面点击 **从剪切板导入**，直接导入节点链接：
+In the WebUI Config page, click **Add → Add Node** and paste your node link:
 
 ```
-vless://... 或 vmess://... 或 trojan://... 等
+vless://... or vmess://... or trojan://... etc.
 ```
 
-### 方式二：订阅导入
+### Method 2: Import Subscription
 
-在 APP节点页面点击 **添加订阅**，输入订阅名称和地址，自动解析全部节点。
+Click **Add → Add Subscription**, enter the subscription name and URL to auto-parse all nodes.
 
-### 方式三：手动配置
+### Method 3: Manual Configuration
 
- 在 `outbounds/default` 目录创建 JSON 配置文件，格式示例：
+Create a JSON config file in the `outbounds/default` directory:
 
 ```json
 {
@@ -123,42 +126,42 @@ vless://... 或 vmess://... 或 trojan://... 等
 
 
 
-## 交流群组
+## Community
 
 <p align="center">
   <a href="https://t.me/NetProxy_Magisk">
-    <img src="https://img.shields.io/badge/Telegram-加入群组-blue?style=for-the-badge&logo=telegram" alt="Telegram Group" />
+    <img src="https://img.shields.io/badge/Telegram-Join%20Group-blue?style=for-the-badge&logo=telegram" alt="Telegram Group" />
   </a>
 </p>
 
 ---
 
-## 贡献
+## Contributing
 
-欢迎参与项目！
+Contributions are welcome!
 
-- 提交 Issue 反馈 BUG
-- 提出功能建议
-- 提交 Pull Request
-- Star 支持项目！
+- Submit Issues to report bugs
+- Suggest new features
+- Submit Pull Requests
+- Star the project to show support!
 
 ---
 
-## 鸣谢
+## Acknowledgments
 
-本项目的开发离不开以下优秀的开源项目：
+This project is built upon the following excellent open-source projects:
 
-| 项目 | 说明 |
+| Project | Description |
 |------|------|
-| [Xray-core](https://github.com/XTLS/Xray-core) | 核心代理引擎，支持 VLESS、XTLS、REALITY 等先进协议 |
-| [v2rayNG](https://github.com/2dust/v2rayNG) | 节点链接解析逻辑参考 |
-| [AndroidTProxyShell](https://github.com/CHIZI-0618/AndroidTProxyShell) | Android TProxy 透明代理实现参考 |
-| [KsuWebUIStandalone](https://github.com/KOWX712/KsuWebUIStandalone) | WebUI 独立运行方案参考 |
-| [Proxylink](https://github.com/Fanju6/Proxylink) | 代理链接解析器，用于订阅解析和配置生成 |
+| [Xray-core](https://github.com/XTLS/Xray-core) | Core proxy engine with VLESS, XTLS, REALITY protocols |
+| [v2rayNG](https://github.com/2dust/v2rayNG) | Node link parsing logic reference |
+| [AndroidTProxyShell](https://github.com/CHIZI-0618/AndroidTProxyShell) | Android TProxy implementation reference |
+| [KsuWebUIStandalone](https://github.com/KOWX712/KsuWebUIStandalone) | WebUI standalone solution reference |
+| [Proxylink](https://github.com/Fanju6/Proxylink) | Proxy link parser for subscription parsing and config generation |
 
 ---
 
-## 许可证
+## License
 
 [GPL-3.0 License](LICENSE)
 
